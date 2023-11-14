@@ -16,15 +16,6 @@ FROM Adherents
 WHERE Parrain IS NOT NULL
 GROUP BY Parrain;
 
-/*Nom et prénom du parrain le plus prolifique*/
-SELECT Nom, Prenom
-FROM Adherents
-WHERE Numero = (
-    SELECT Parrain
-    FROM Adherents
-    WHERE Parrain IS NOT NULL
-);
-
 
 /*Nom et prénom des adhérents parrainés avec pour chacun d'eux le nom et le prénom du parrain*/
 SELECT Adherents.Nom, Adherents.Prenom, Parrains.Nom AS NomParrain, Parrains.Prenom AS PrenomParrain
@@ -39,3 +30,13 @@ SELECT Adherents.Nom, Adherents.Prenom, Parrains.Nom AS NomParrain, Parrains.Pre
 FROM Adherents
 LEFT JOIN Adherents AS Parrains ON Adherents.Parrain = Parrains.Numero
 ORDER BY Adherents.Nom, Adherents.Prenom;
+
+
+/*Nom et prénom du parrain le plus prolifique*/
+SELECT Nom, Prenom
+FROM Adherents
+WHERE Numero = (
+    SELECT Parrain
+    FROM Adherents
+    WHERE Parrain IS NOT NULL
+);
